@@ -1,0 +1,54 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* styles.css */
+.faq-container {
+    max-width: 800px;
+    margin: 0 auto;
+    padding: 20px;
+}
+
+.faq-list {
+    list-style: none;
+    padding: 0;
+}
+.faq-list-li {
+    list-style: none;
+    padding: 0;
+    margin-bottom: 20px;
+}
+
+.question {
+    background-color: #3b3b3b;
+    border: none;
+    width: 100%;
+    text-align: left;
+    padding-left: 50px;
+    font-size: 22px;
+    cursor: pointer;
+    color: white;
+    border-radius: 10px 10px 0 0;
+    height: 70px;
+}
+
+.answer {
+    display: none;
+    padding: 10px;
+    color: rgb(194, 194, 194);
+    padding-left: 70px;
+    background-color: #3b3b3b;
+    padding-bottom: 20px;
+}
+
+.question:focus + .answer {
+    display: block;
+}
+
+.question:focus {
+    text-decoration: underline;
+}
+
+.answer-pink {
+    color: rgb(255, 166, 208);
+}
