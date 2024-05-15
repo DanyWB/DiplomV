@@ -941,16 +941,16 @@ Gaming Library Style
 */
 
 .gaming-library {
-    margin-top: 60px;
     padding: 30px;
     background-color: #1f2122;
-    border-radius: 23px;
+    border-radius: 0 0 23px 23px;
 }
 
 .gaming-library .item {
     border-bottom: 1px solid #27292a;
-    margin-bottom: 20px;
+    margin-bottom: 40px;
     padding-bottom: 20px;
+    padding-top: 10px;
 }
 
 .gaming-library .last-item {
@@ -963,6 +963,10 @@ Gaming Library Style
     margin-bottom: 0px;
 }
 
+.gaming-library .item ul {
+    display: flex;
+}
+
 .gaming-library .item ul li {
     margin-top: 15px;
 }
@@ -973,7 +977,6 @@ Gaming Library Style
 
 .gaming-library .item ul li {
     display: inline-block;
-    width: 17%;
 }
 
 .gaming-library .item ul li:first-child {
@@ -981,13 +984,22 @@ Gaming Library Style
 }
 
 .gaming-library .item ul li:last-child {
-    width: 15%;
     text-align: right;
+    margin-left: auto;
+}
+
+.gaming-library .item .title-card {
+    font-size: 24px;
+    margin-left: 10px;
+}
+
+.gaming-library .item .desc-card {
+    text-align: right;
+    align-self: flex-end;
 }
 
 .gaming-library .item ul li h4 {
-    font-size: 15px;
-    margin-bottom: 5px;
+    font-size: 21px;
 }
 
 .gaming-library .item ul li span {
@@ -998,6 +1010,23 @@ Gaming Library Style
 .gaming-library .main-button {
     text-align: center;
     margin-bottom: -53px;
+}
+.gaming-library .item ul li .heart-active {
+    color: rgb(157, 71, 71);
+}
+
+.gaming-library .item ul li .heart {
+    margin-left: 10px;
+    padding-right: 5px;
+    cursor: pointer;
+}
+
+.gaming-library .item ul li .heart:hover {
+    color: rgb(216, 97, 97);
+    transition: 0.3s;
+}
+.gaming-library .item ul li .heart:before {
+    padding-right: 6px;
 }
 
 /*
@@ -1717,15 +1746,34 @@ body {
     .main-banner h4 {
         font-size: 35px;
     }
+
+    .gaming-library .item ul {
+        flex-direction: column;
+    }
+
+    .gaming-library .item ul .title-card {
+        flex-direction: column;
+        position: relative;
+    }
     .gaming-library .item ul li,
     .gaming-library .item ul li:first-child,
     .gaming-library .item ul li:last-child {
         width: 100% !important;
-        text-align: center !important;
     }
     .gaming-library .item ul li {
         margin-top: 30px;
     }
+
+    .gaming-library .item ul li:last-child .main-border-button {
+        text-align: end;
+    }
+
+    .gaming-library .item ul li .heart {
+        position: absolute;
+        right: 0;
+        bottom: 5px;
+    }
+
     .top-downloaded ul li .download i {
         top: 20px;
         width: 30px;
@@ -1766,9 +1814,7 @@ body {
     .heading-section h4 {
         font-size: 20px;
     }
-    .gaming-library .item ul li {
-        width: 48% !important;
-    }
+
     .gaming-library .item ul li:last-child {
         text-align: left;
     }
@@ -1795,7 +1841,14 @@ body {
         margin-right: 30px;
         border-right: none;
     }
+}
+
+@media (max-width: 1025px) {
     .gaming-library .item ul li {
-        width: 16%;
+        display: flex;
+        flex-direction: column;
     }
+}
+.top-downloaded ul li .download i {
+    top: 75% !important;
 }

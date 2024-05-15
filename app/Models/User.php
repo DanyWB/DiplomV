@@ -44,4 +44,17 @@ class User extends Authenticatable
             'password' => 'hashed',
         ];
     }
+
+
+    public function likes() {
+        return $this->hasMany(UserLike::class, 'user_id');
+   }
+
+   public function likesOnPost() {
+    return $this->hasMany(UserLike::class, 'user_id')->where('likeable_type', 'App\Models\Post');
+}
+
+
+
+
 }
