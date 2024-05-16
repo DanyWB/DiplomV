@@ -1,9 +1,10 @@
 <?php
 
 use App\Models\Post;
-use App\Models\Comment;
+use App\Models\User;
+
 
 return [
     'post' => Post::class,
-    'comment' => Comment::class
+    'user' => User::class
 ];

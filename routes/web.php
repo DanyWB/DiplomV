@@ -4,7 +4,7 @@ use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {
-    Route::redirect()->route('home.index');
+    Route::redirect()->route('forum.index');
 });
 
 
@@ -26,9 +26,17 @@ Route::group(['namespace' => 'App\Http\Controllers\Post' ], function () {
 
     Route::get('/forum', 'IndexController')->name('forum.index');
     Route::get('/forum/{post}', 'ShowController')->name('forum.show');
-
+    Route::post('/forum', 'StoreController')->name('forum.store');
 
 });
+
+Route::group(['namespace' => 'App\Http\Controllers\Image' ], function () {
+
+    Route::post('/image_store', 'StoreController')->name('image.store');
+
+});
+
+
 
 
 

@@ -6,7 +6,7 @@
                   <nav class="main-nav">
                       <!-- ***** Logo Start ***** -->
                       <a href="index.html" class="logo">
-                          <img src="assets/images/logo.png" alt="">
+                          <img src="{{ asset('assets/images/logo.png') }}" alt="">
                       </a>
                       <!-- ***** Logo End ***** -->
                       <!-- ***** Search End ***** -->
@@ -24,7 +24,7 @@
                           <li><a href="browse.html">Форум</a></li>
                           <li><a href="details.html">Новости</a></li>
                           <li><a href="streams.html">Руководства</a></li>
-                          <li><a href="profile.html">Профиль <img src="assets/images/profile-header.jpg"
+                          <li><a href="profile.html">Профиль <img src="{{ asset('assets/images/profile-header.jpg') }}"
                                       alt=""></a></li>
                       </ul>
                       <a class='menu-trigger'>

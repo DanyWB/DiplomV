@@ -5,6 +5,22 @@
         $department_id = $_GET['department_id'] ?? '';
         $category_id = $_GET['category_id'] ?? '';
     @endphp
+
+    <script>
+        function postFormGenerate() {
+            let commentForm = document.getElementById(`postForm`);
+            let commentButton = document.getElementById(`postCreateButton`);
+            if (commentForm.style.display === 'none') {
+                commentForm.style.display = 'block';
+                commentButton.innerHTML = 'Отменить';
+            } else {
+                commentForm.style.display = 'none';
+                commentButton.innerHTML = 'Создать тему';
+            }
+
+
+        }
+    </script>
     <div class="container">
         <div class="page-content">
             <div class="row">
@@ -54,17 +70,58 @@
                     @endif
                     <div class="gaming-library">
                         <div>
-                            <div class="heading-section">
+                            <div style="display: flex;justify-content:space-between" class="heading-section">
                                 <h4><em></em> Темы</h4>
+                                @if (!empty($department_id))
+                                    <button onclick="postFormGenerate()" onmouseover="this.style.color='#999';"
+                                        onmouseout="this.style.color='white';" id="postCreateButton"
+                                        style = "color: white;">Создать тему</button>
+                                @endif
                             </div>
+                            <form style="display: none" id='postForm' action="{{ route('forum.store') }}" method="post">
+                                @csrf
+                                <div class="row">
+                                    <div class="form-group col-12" data-aos="fade-up">
 
+                                        <label for="title" class="sr-only">Загаловок</label>
+                                        <textarea style = "height:20px;margin-bottom:15px;color: white;background-color:rgb(51, 51, 51)" name="title"
+                                            id="title" class="form-control" placeholder="Заголовок" rows="2"></textarea>
+                                        @error('title')
+                                            <p class = "text-danger flex justify-center">
+                                                {{ $message }}</p>
+                                        @enderror
+                                        <label for="comment" class="sr-only">Комментарий</label>
+                                        <textarea style = "height:100px;margin-bottom:15px;color: white;background-color:rgb(51, 51, 51)" name="content"
+                                            id="comment" class="form-control" placeholder="Пост" rows="4"></textarea>
+                                        @error('content')
+                                            <p class = "text-danger flex justify-center">
+                                                {{ $message }}</p>
+                                        @enderror
+                                    </div>
+                                    <input type="hidden" name="department_id" value = "{{ $department_id }}">
+                                    <input type="hidden" name="category_id" value = "{{ $category_id }}">
+                                    <div class="col-12" data-aos="fade-up">
+                                        <button type="submit" class="btn"
+                                            style = "color: white;background-color:rgb(64, 64, 64)">Создать пост</button>
+                                    </div>
+                                </div>
+                            </form>
 
 
                             @foreach ($posts as $post)
                                 <div class="item">
                                     <ul style="position: relative">
-                                        <li><img src="assets/images/game-02.jpg" alt=""
-                                                class="templatemo-item"><span></span></li>
+                                        <li>
+
+                                            @if ($post->user->getMedia('avatar')->first())
+                                                <div class = "post-preview-user">
+                                                    {{ $post->user->getMedia('avatar')->first() }}</div>
+                                            @else
+                                                <img src="{{ asset('assets/images/game-02.jpg') }}" alt=""
+                                                    class="templatemo-item">
+                                            @endif
+                                            <span></span>
+                                        </li>
                                         <li class = "title-card">
                                             <h4>{{ $post->title }}</h4>
                                             <span>{{ Carbon::parse($post->created_at)->toDateString() }}</span>
@@ -72,9 +129,11 @@
                                                 @csrf
                                                 <input type="hidden" name="likeable_id" value = "{{ $post->id }}">
                                                 <input type="hidden" name="likeable_type" value = "post">
+
                                                 <button
-                                                    style="color: #666;font-size: 14px;position: absolute;right: 0;bottom: 5px;"
-                                                    type="submit" class="fa fa-heart heart e">1 </button>
+                                                    style="{{ $post->is_liked_count > 0 ? 'color: #ec6090;' : 'color: #666;' }}font-size: 14px;position: absolute;right: 0;bottom: 5px;"
+                                                    type="submit" class="fa fa-heart heart">{{ $post->likes_count }}
+                                                </button>
                                             </form>
 
 
@@ -97,42 +156,31 @@
                 <div class="col-lg-3">
                     <div class="top-downloaded">
                         <div class="heading-section">
-                            <h4 class = "col-lg-4">Популярные <em>Обсуждения </em></h4>
+                            <h4 style = "font-size:20px;" class = "col-lg-4">Популярные <em>Обсуждения </em></h4>
                         </div>
                         <ul>
-                            <li>
-                                <img src="assets/images/game-01.jpg" alt="" class="templatemo-item"
-                                    style = "width:200px !important;">
-                                <h4>Lorem ipsum, dolor sit amet consectetur adipisicing.</h4>
-                                <h6>22/02/23</h6>
+                            @foreach ($relatedPosts as $post)
+                                <li>
+                                    @if ($post->user->getMedia('avatar')->first())
+                                        <div class = "post-preview-user-min">
+                                            {{ $post->user->getMedia('avatar')->first() }}</div>
+                                    @else
+                                        <img src="{{ asset('assets/images/game-02.jpg') }}" alt=""
+                                            class="templatemo-item">
+                                    @endif
 
-                                <span><i class="fa fa-heart" style="color: #ec6090;"></i> 22</span>
-                                <div class="download">
-                                    <a href="#"><i class="fa fa-arrow-right"></i></a>
-                                </div>
-                            </li>
-                            <li>
-                                <img src="assets/images/game-01.jpg" alt="" class="templatemo-item"
-                                    style = "width:200px !important;">
-                                <h4>Lorem ipsum, dolor sit amet consectetur adipisicing.</h4>
-                                <h6>22/02/23</h6>
+                                    <h4>{{ $post->title }}</h4>
+                                    <h6 style="font-size:12px">{{ Carbon::parse($post->created_at)->toDateString() }}</h6>
+                                    <span><i class="fa fa-heart" style="color: #ec6090;"></i>
+                                        {{ $post->likes_count }}</span>
+                                    <div class="download">
+                                        <a href="{{ route('forum.show', $post->id) }}"><i
+                                                class="fa fa-arrow-right"></i></a>
+                                    </div>
+                                </li>
+                            @endforeach
 
-                                <span><i class="fa fa-heart" style="color: #ec6090;"></i> 22</span>
-                                <div class="download">
-                                    <a href="#"><i class="fa fa-arrow-right"></i></a>
-                                </div>
-                            </li>
-                            <li>
-                                <img src="assets/images/game-01.jpg" alt="" class="templatemo-item"
-                                    style = "width:200px !important;">
-                                <h4>Lorem ipsum, dolor sit amet consectetur adipisicing.</h4>
-                                <h6>22/02/23</h6>
 
-                                <span><i class="fa fa-heart" style="color: #ec6090;"></i> 22</span>
-                                <div class="download">
-                                    <a href="#"><i class="fa fa-arrow-right"></i></a>
-                                </div>
-                            </li>
                         </ul>
 
                     </div>

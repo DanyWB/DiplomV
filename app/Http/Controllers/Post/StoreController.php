@@ -8,7 +8,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Storage;
-use App\Http\Requests\Admin\Post\StoreRequest;
+use App\Http\Requests\Post\StoreRequest;
 
 class StoreController extends BaseController
 {
@@ -20,6 +20,7 @@ class StoreController extends BaseController
 
         $data = $request->validated();
 
+
         $this->service->store($data);
 
 
@@ -29,7 +30,7 @@ class StoreController extends BaseController
 
 
 
-       return redirect()->route('admin.post.index');
+       return redirect()->route('forum.index');
 
     }
 

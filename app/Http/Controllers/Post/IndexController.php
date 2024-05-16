@@ -20,18 +20,15 @@ class IndexController extends BaseController
      */
     public function __invoke(FilterRequest $request)
     {
-
             $data = $request->validated();
 
             $filter = app()->make(PostFilter::class, ['queryParams'=> array_filter($data)]);
 
-
             $posts = Post::filter($filter)->orderBy('created_at', 'asc')->get();
 
+            $relatedPosts = Post::withCount('likes')->orderBy('likes_count', 'desc')->get()->take(4);
 
-
-
-        return view('forum.index', compact('posts'));
+        return view('forum.index', compact('posts', 'relatedPosts'));
     }
 
 }
