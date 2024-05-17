@@ -41,7 +41,7 @@
                                     </li>
                                     <li class = "title-card">
                                         <h4>{{ $post->title }}</h4>
-                                        <span>{{ Carbon::parse($post->created_at)->toDateString() }}</span>
+                                        <span>{{ Carbon::parse($post->created_at)->diffForHumans() }}</span>
 
 
 
@@ -111,7 +111,7 @@
                                             </li>
                                             <li class = "title-card">
                                                 <h4>{{ $comment->content }}</h4>
-                                                <span> {{ Carbon::parse($comment->created_at)->toDateTimeString() }}
+                                                <span> {{ Carbon::parse($comment->created_at)->diffForHumans() }}
                                                 </span>
                                             </li>
 
@@ -178,7 +178,7 @@
                                                     <li class = "title-card">
                                                         <h4>{{ $comment->content }}</h4>
                                                         <span>
-                                                            {{ Carbon::parse($comment->created_at)->toDateTimeString() }}
+                                                            {{ Carbon::parse($comment->created_at)->diffForHumans() }}
                                                         </span>
 
                                                     </li>
@@ -250,7 +250,7 @@
                                                             <li class = "title-card">
                                                                 <h4>{{ $comment->content }}</h4>
                                                                 <span>
-                                                                    {{ Carbon::parse($comment->created_at)->toDateTimeString() }}
+                                                                    {{ Carbon::parse($comment->created_at)->diffForHumans() }}
                                                                 </span>
 
                                                             </li>
@@ -304,7 +304,8 @@
                                     @endif
 
                                     <h4>{{ $post->title }}</h4>
-                                    <h6 style="font-size:12px">{{ Carbon::parse($post->created_at)->toDateString() }}</h6>
+                                    <h6 style="font-size:12px">{{ Carbon::parse($post->created_at)->diffForHumans() }}
+                                    </h6>
                                     <span><i class="fa fa-heart" style="color: #ec6090;"></i>
                                         {{ $post->likes_count }}</span>
                                     <div class="download">
