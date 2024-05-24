@@ -175,7 +175,6 @@ ul {
 p {
     font-size: 15px;
     line-height: 30px;
-    color: #fff;
 }
 
 img {
@@ -203,7 +202,7 @@ body .page-content {
 
 p {
     font-size: 15px;
-    color: #666;
+
     line-height: 30px;
     margin-bottom: 0px;
 }
@@ -991,6 +990,7 @@ Gaming Library Style
 .gaming-library .item .title-card {
     font-size: 24px;
     margin-left: 10px;
+    margin-right: 10px;
 }
 
 .gaming-library .item .desc-card {
@@ -1850,5 +1850,5 @@ body {
     }
 }
 .top-downloaded ul li .download i {
-    top: 75% !important;
+    top: 85% !important;
 }

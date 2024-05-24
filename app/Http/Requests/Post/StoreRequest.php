@@ -25,7 +25,7 @@ class StoreRequest extends FormRequest
 
 
         return [
-            'title' => ['required','string','min:5','max:30'],
+            'title' => ['required','string','min:5','max:50'],
             'content' => 'required|string|min:10|max:1000',
             'category_id' => 'nullable|exists:categories,id',
             'department_id' => 'required|exists:departments,id',

@@ -27,6 +27,7 @@ class FilterRequest extends FormRequest
 
             'category_id' => 'exists:categories,id',
             'department_id' => 'exists:departments,id',
+            'post_content' => '',
 
         ];
     }

@@ -25,7 +25,7 @@ class CommentRequest extends FormRequest
     {
 
         return [
-            'content' => ['required','string','min:5','max:30'],
+            'content' => ['required','string','min:5','max:200'],
             'commentable_id' => '',
             'commentable_type' => '',
         ];

@@ -8,7 +8,7 @@ use Illuminate\Database\Eloquent\Model;
 class Comment extends Model
 {
     use HasFactory;
-    
+
     protected $fillable = ['content', 'commentable_id','commentable_type','user_id'];
 
     public function commentable() {
@@ -27,7 +27,7 @@ class Comment extends Model
     }
 
     public function isLiked() {
-        return $this->morphMany(UserLike::class, 'likeable')->where('user_id', auth()->user()->id);
+        return $this->morphMany(UserLike::class, 'likeable')->where('user_id', auth()->user()->id ?? -1);
     }
 
     protected $withCount = ['likes', 'isLiked'];

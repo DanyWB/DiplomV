@@ -26,16 +26,20 @@
             <div class="row">
                 <div class="col-lg-12 ">
                     <div class="heading-section">
-                        <div style = "margin-bottom: 50px;" class="row" style="flex-direction: row;">
-                            <h4 @if ($department_id == 1) style="text-decoration:underline;" @endif
-                                class = "col-lg-4"><a href="{{ route('forum.index', ['department_id' => '1']) }}">Обсуждение
-                                    <em>Форума </em></a></h4>
-                            <h4 @if ($department_id == 2) style="text-decoration:underline;" @endif
-                                class = "col-lg-4"><a href="{{ route('forum.index', ['department_id' => '2']) }}">Обсуждение
-                                    <em>Игр </em></a></h4>
-                            <h4 @if ($department_id == 3) style="text-decoration:underline;" @endif
-                                class = "col-lg-4"><a href="{{ route('forum.index', ['department_id' => '3']) }}">Обсуждение
-                                    <em>Всего </em></a></h4>
+                        <div style = "margin-bottom: 50px; justify-content: space-between"" class="row">
+                            <div class = "col-lg-3 departnent-title {{ $department_id == 1 ? 'active' : '' }}"><a
+                                    href="{{ route('forum.index', ['department_id' => '1']) }}">
+                                    О форуме</a>
+                                <img src="{{ asset('assets/images/1.jpg') }}" alt="">
+                            </div>
+                            <div class = "col-lg-3 departnent-title {{ $department_id == 2 ? 'active' : '' }}"><a
+                                    href="{{ route('forum.index', ['department_id' => '2']) }}">
+                                    Игры</a><img src="{{ asset('assets/images/2.jpg') }}" alt="">
+                            </div>
+                            <div class = "col-lg-3 departnent-title {{ $department_id == 3 ? 'active' : '' }}"><a
+                                    href="{{ route('forum.index', ['department_id' => '3']) }}">
+                                    Разное</a><img src="{{ asset('assets/images/3.jpg') }}" alt="">
+                            </div>
                         </div>
                     </div>
 
@@ -106,7 +110,18 @@
                                     </div>
                                 </div>
                             </form>
-
+                            @if (!empty($department_id))
+                                <form class = "form-guid" method="get" autocomplete="off"
+                                    action="{{ route('forum.index') }}">
+                                    <div class="" style="width:300px;">
+                                        <input class= "input-guid" id="post_content" type="text" name="post_content"
+                                            placeholder="Ищу...">
+                                        <input type="hidden" name="department_id" value="{{ $department_id }}">
+                                        <input type="hidden" name="category_id" value="{{ $category_id }}">
+                                    </div>
+                                    <input class = "search-guid" type="submit" value="Найти">
+                                </form>
+                            @endif
 
                             @foreach ($posts as $post)
                                 <div class="item">
@@ -117,15 +132,17 @@
                                                 <div class = "post-preview-user">
                                                     {{ $post->user->getMedia('avatar')->first() }}</div>
                                             @else
-                                                <img src="{{ asset('assets/images/game-02.jpg') }}" alt=""
-                                                    class="templatemo-item">
+                                                <div class = "post-preview-user">
+                                                    <img src="{{ asset('assets/images/default.png') }}" alt="">
+                                                </div>
                                             @endif
                                             <span></span>
                                         </li>
                                         <li class = "title-card">
                                             <h4>{{ $post->title }}</h4>
                                             <span>{{ Carbon::parse($post->created_at)->toDateString() }}</span>
-                                            <form style="display:inline" method="post" action="{{ route('like.store') }}">
+                                            <form style="display:inline" method="post"
+                                                action="{{ route('like.store') }}">
                                                 @csrf
                                                 <input type="hidden" name="likeable_id" value = "{{ $post->id }}">
                                                 <input type="hidden" name="likeable_type" value = "post">
@@ -147,9 +164,15 @@
                                     </ul>
                                 </div>
                             @endforeach
+                            @if ($posts->count() < 1)
+                                <div style="font-size:26px; text-align: center;color:rgb(130, 130, 130)">
+                                    Посты не найдены(
+                                </div>
+                            @endif
 
-
-
+                            <div>
+                                {{ $posts->withQueryStrings()->links() }}
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -165,7 +188,7 @@
                                         <div class = "post-preview-user-min">
                                             {{ $post->user->getMedia('avatar')->first() }}</div>
                                     @else
-                                        <img src="{{ asset('assets/images/game-02.jpg') }}" alt=""
+                                        <img src="{{ asset('assets/images/default.png') }}" alt=""
                                             class="templatemo-item">
                                     @endif
 

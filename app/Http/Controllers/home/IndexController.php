@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Controllers\Post;
+namespace App\Http\Controllers\Home;
 
 use App\Models\Tag;
 use App\Models\Post;
@@ -10,14 +10,13 @@ use App\Models\UserLike;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 
-class IndexController extends BaseController
+class IndexController extends Controller
 {
     /**
      * Display a listing of the resource.
      */
     public function __invoke()
     {
-
 
 
 

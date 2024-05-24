@@ -1,15 +1,23 @@
 @extends('layouts.app')
 @section('content')
+    @php
+        use Illuminate\Support\Carbon;
+        use Carbon\CarbonInterface;
+
+    @endphp
     <div class="page-content">
         <script>
             function updatePreview(input, target) {
+
+
                 let btn = document.getElementById('btn-for-upload');
                 let file = input.files[0];
                 let reader = new FileReader();
 
                 reader.readAsDataURL(file);
                 reader.onload = function() {
-                    let img = document.getElementById(target);
+                    let img = document.getElementById(target).children[0];
+                    console.log(img)
                     // can also use "this.result"
                     img.src = reader.result;
                 }
@@ -21,10 +29,19 @@
         <div class="row profile-top" style = "margin-bottom:70px">
             <div class="col-lg-4">
                 <div class="profile-preview">
-                    <img id="prewiew_image" style = "border-radius:25px;height:300px;" src="assets/images/game-02.jpg"
-                        alt="1">
+                    {{-- <img id="prewiew_image" style = "border-radius:25px;height:300px;" src="assets/images/game-02.jpg"
+                        alt="1"> --}}
+                    @if (auth()->user()->getMedia('avatar')->first())
+                        <div class = "image_profile" style = "border-radius:25px;height:300px;" id="prewiew_image">
+                            {{ auth()->user()->getMedia('avatar')->first() }}
+                        </div>
+                    @else
+                        <div style = "border-radius:25px;height:300px;" id="prewiew_image">
+                            <img src="{{ asset('assets/images/game-02.jpg') }}" alt="" class="templatemo-item">
+                        </div>
+                    @endif
                     <div class="profile-name">
-                        Name
+                        {{ auth()->user()->name }}
                         <form class = "input-form" action="{{ route('image.store') }}" method="post"
                             enctype="multipart/form-data">
                             @csrf
@@ -54,7 +71,7 @@
                             Всего Постов:
                         </div>
                         <div class="profile-static-info">
-                            54
+                            {{ auth()->user()->posts->count() }}
                         </div>
                     </div>
                     <div class="profile-static-item">
@@ -62,7 +79,7 @@
                             Оставлено коментариев:
                         </div>
                         <div class="profile-static-info">
-                            21
+                            {{ auth()->user()->comments->count() }}
                         </div>
                     </div>
                     <div class="profile-static-item">
@@ -70,7 +87,7 @@
                             Всего понравилось:
                         </div>
                         <div class="profile-static-info">
-                            54
+                            {{ auth()->user()->likes->count() }}
                         </div>
                     </div>
                     <div class="profile-static-item">
@@ -78,7 +95,7 @@
                             На форуме:
                         </div>
                         <div class="profile-static-info">
-                            356 дней
+                            {{ Carbon::parse(auth()->user()->created_at)->diffForHumans(now(), CarbonInterface::DIFF_ABSOLUTE) }}
                         </div>
                     </div>
                 </div>

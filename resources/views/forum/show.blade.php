@@ -4,6 +4,14 @@
         use Illuminate\Support\Carbon;
 
     @endphp
+    @if ($comments->lastPage() < $comments->currentPage())
+        <script>
+            window.location = "/forum/{{ $post->id }}?page={{ $comments->lastPage() }}";
+        </script>
+        @php
+            exit();
+        @endphp
+    @endif
     <script>
         function commentFormGenerate(id) {
             let commentForm = document.getElementById(`comment${id}`);
@@ -102,7 +110,7 @@
                                                     <div class = "post-preview-user">
                                                         {{ $comment->user->getMedia('avatar')->first() }}</div>
                                                 @else
-                                                    <img src="{{ asset('assets/images/game-02.jpg') }}" alt=""
+                                                    <img src="{{ asset('assets/images/default.png') }}" alt=""
                                                         class="templatemo-item">
                                                 @endif
 
@@ -168,7 +176,7 @@
                                                             <div class = "post-preview-user">
                                                                 {{ $comment->user->getMedia('avatar')->first() }}</div>
                                                         @else
-                                                            <img src="{{ asset('assets/images/game-02.jpg') }}"
+                                                            <img src="{{ asset('assets/images/default.png') }}"
                                                                 alt="" class="">
                                                         @endif
 
@@ -241,7 +249,7 @@
                                                                         {{ $comment->user->getMedia('avatar')->first() }}
                                                                     </div>
                                                                 @else
-                                                                    <img src="{{ asset('assets/images/game-02.jpg') }}"
+                                                                    <img src="{{ asset('assets/images/default.png') }}"
                                                                         alt="" class="">
                                                                 @endif
                                                                 <span>{{ $comment->user->name }}
@@ -281,7 +289,9 @@
                                         @endforeach
                                     @endif
                                 @endforeach
-
+                                <div>
+                                    {{ $comments->withPath("{$post->id}")->links() }}
+                                </div>
                             </div>
                         </div>
                     </div>
@@ -299,7 +309,7 @@
                                         <div class = "post-preview-user-min">
                                             {{ $post->user->getMedia('avatar')->first() }}</div>
                                     @else
-                                        <img src="{{ asset('assets/images/game-02.jpg') }}" alt=""
+                                        <img src="{{ asset('assets/images/default.png') }}" alt=""
                                             class="templatemo-item">
                                     @endif
 

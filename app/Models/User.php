@@ -3,6 +3,8 @@
 namespace App\Models;
 
 // use Illuminate\Contracts\Auth\MustVerifyEmail;
+
+use Carbon\CarbonInterface;
 use Spatie\Image\Enums\Fit;
 use Spatie\MediaLibrary\HasMedia;
 use Illuminate\Notifications\Notifiable;
@@ -56,12 +58,19 @@ class User extends Authenticatable implements HasMedia
     public function likes() {
         return $this->hasMany(UserLike::class, 'user_id');
    }
-
-   public function likesOnPost() {
-    return $this->hasMany(UserLike::class, 'user_id')->where('likeable_type', 'App\Models\Post');
+   public function comments() {
+    return $this->hasMany(Comment::class);
 }
 
 
+   public function likesOnPost() {
+    return $this->hasMany(UserLike::class, 'user_id')->where('likeable_type', 'App\Models\Post');
+    }
 
+    public function posts() {
+    return $this->hasMany(Post::class, 'user_id');
+    }
+
+// protected $withCount = ['likes'];
 
 }

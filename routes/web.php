@@ -1,13 +1,18 @@
 <?php
 
-use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\GameController;
+use Illuminate\Support\Facades\Redirect;
+use App\Http\Controllers\ProfileController;
 
-Route::get('/', function () {
-    Route::redirect()->route('forum.index');
+
+Route::redirect('/', '/home', 301);
+
+
+
+Route::group(['namespace' => 'App\Http\Controllers\Home' ], function () {
+    Route::get('/home', 'IndexController')->name('home.index');;
 });
-
-
 
 Route::group(['namespace' => 'App\Http\Controllers\Comment' ], function () {
 
@@ -21,7 +26,6 @@ Route::group(['namespace' => 'App\Http\Controllers\Like' ], function () {
 
 });
 
-
 Route::group(['namespace' => 'App\Http\Controllers\Post' ], function () {
 
     Route::get('/forum', 'IndexController')->name('forum.index');
@@ -30,10 +34,31 @@ Route::group(['namespace' => 'App\Http\Controllers\Post' ], function () {
 
 });
 
+Route::group(['namespace' => 'App\Http\Controllers\Article' ], function () {
+
+    Route::get('/article', 'IndexController')->name('article.index');
+    Route::get('/article/create', 'CreateController')->name('article.create');
+    Route::get('/article/{article}', 'ShowController')->name('article.show');
+    Route::post('/article', 'StoreController')->name('article.store');
+
+});
+
+Route::group(['namespace' => 'App\Http\Controllers\Guid' ], function () {
+
+    Route::get('/guid', 'IndexController')->name('guid.index');
+    Route::get('/guid/create', 'CreateController')->name('guid.create');
+    Route::get('/guid/{guid}', 'ShowController')->name('guid.show');
+    Route::post('/guid', 'StoreController')->name('guid.store');
+
+});
+
+
+Route::group(['namespace' => 'App\Http\Controllers' ], function () {
+    Route::get('/game_get','GameController')->name('GameController');
+});
+
 Route::group(['namespace' => 'App\Http\Controllers\Image' ], function () {
-
     Route::post('/image_store', 'StoreController')->name('image.store');
-
 });
 
 

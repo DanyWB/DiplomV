@@ -33,6 +33,8 @@ class ShowController extends BaseController
             getChildComments($item);
         });
 
+        $comments = $comments->paginate(10)->withQueryString();
+
         $user_image_avatar = $post->user->getMedia('avatar')->first() ?? '';
 
         $relatedPosts = Post::withCount('likes')->orderBy('likes_count', 'desc')->get()->take(4);

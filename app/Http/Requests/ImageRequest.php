@@ -37,7 +37,6 @@ class ImageRequest extends FormRequest
 
 
         $model = $commentabales[$this->imageable_type]::findOrFail($this->imageable_id);
-
         return $model;
 
 

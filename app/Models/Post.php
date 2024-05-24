@@ -35,7 +35,7 @@ class Post extends Model
 
 
     public function isLiked() {
-        return $this->morphMany(UserLike::class, 'likeable')->where('user_id', auth()->user()->id);
+        return $this->morphMany(UserLike::class, 'likeable')->where('user_id', auth()->user()->id ?? -1);
     }
 
 

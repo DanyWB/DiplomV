@@ -52,3 +52,57 @@
 .answer-pink {
     color: rgb(255, 166, 208);
 }
+
+.autocomplete {
+    /* контейнер должен быть расположен относительно: */
+    position: relative;
+    display: inline-block;
+}
+.input-guid,
+.search-guid {
+    border: 1px solid transparent;
+    padding: 10px;
+    font-size: 16px;
+    color: rgb(232, 232, 232);
+}
+.input-guid {
+    background-color: #383838;
+    border-radius: 25px 0 0 25px;
+    width: 100%;
+}
+.search-guid {
+    background-color: #383838;
+    border-radius: 0 25px 25px 0;
+    color: rgb(218, 218, 218);
+}
+.autocomplete-items {
+    position: absolute;
+    border: 1px solid #d4d4d4;
+    border-bottom: none;
+    border-top: none;
+    z-index: 99;
+    /* расположите элементы автозаполнения так, чтобы они имели ту же ширину, что и контейнер: */
+    top: 100%;
+    left: 0;
+    right: 0;
+}
+.autocomplete-items div {
+    padding: 10px;
+    cursor: pointer;
+    background-color: #fff;
+    border-bottom: 1px solid #d4d4d4;
+}
+.autocomplete-items div:hover {
+    /* при наведении курсора на элемент: */
+    background-color: #e9e9e9;
+}
+.autocomplete-active {
+    /* при навигации по элементам используются клавиши со стрелками: */
+    background-color: DodgerBlue !important;
+    color: #ffffff;
+}
+
+.form-guid {
+    display: flex;
+    justify-content: flex-end;
+}
